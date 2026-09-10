@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PenaVet — Papers</title>
+  <meta name="description" content="Acervo de papers técnicos PenaVet: condutas em emergência, anestesia e cuidado crítico veterinário.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700;900&family=Archivo+Narrow:wght@700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink:        #0A0E12;
+      --panel:      #0C1116;
+      --red:        #E50926;
+      --red-vivid:  #FF2740;
+      --green:      #10C883;
+
+      --line:       rgba(255,255,255,0.10);
+      --line-strong:rgba(255,255,255,0.22);
+      --txt:        #FFFFFF;
+      --txt-soft:   rgba(255,255,255,0.58);
+      --txt-faint:  rgba(255,255,255,0.34);
+
+      --type-eyebrow: 11px;
+      --type-body:    16px;
+      --type-lead:    18px;
+      --type-card:    34px;
+      --type-hero:    76px;
+
+      --pad-page:  clamp(24px, 6vw, 96px);
+      --gap-block: 56px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Archivo', system-ui, sans-serif;
+      background: var(--panel);
+      color: var(--txt);
+      font-size: var(--type-body);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    main { flex: 1; }
+
+    .rule-top {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: var(--red);
+      z-index: 10;
+    }
+
+    .wrap {
+      width: 100%;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 var(--pad-page);
+    }
+
+    /* ── HEADER ── */
+    .masthead {
+      padding: clamp(72px, 12vh, 132px) 0 var(--gap-block);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .masthead::after {
+      content: '';
+      position: absolute;
+      top: -140px; right: -160px;
+      width: 420px; height: 420px;
+      border-radius: 50%;
+      background: rgba(229,9,38,0.07);
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      font-size: var(--type-eyebrow);
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--txt-faint);
+      margin-bottom: 22px;
+    }
+
+    .eyebrow span { color: var(--red); }
+
+    h1 {
+      font-weight: 900;
+      font-size: var(--type-hero);
+      line-height: 0.94;
+      text-transform: uppercase;
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+    }
+
+    h1 em {
+      color: var(--red);
+      font-style: normal;
+    }
+
+    .lead {
+      font-size: var(--type-lead);
+      color: var(--txt-soft);
+      max-width: 560px;
+      line-height: 1.6;
+      text-wrap: pretty;
+    }
+
+    /* ── LISTA ── */
+    .list-head {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      border-top: 1px solid var(--line);
+      padding-top: 20px;
+      margin-bottom: 28px;
+    }
+
+    .list-head .eyebrow { margin-bottom: 0; }
+
+    .count {
+      font-family: 'Archivo Narrow', 'Archivo', sans-serif;
+      font-weight: 900;
+      font-size: var(--type-eyebrow);
+      letter-spacing: 0.14em;
+      color: var(--green);
+      text-transform: uppercase;
+    }
+
+    .papers {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding-bottom: var(--gap-block);
+    }
+
+    .card {
+      display: grid;
+      grid-template-columns: 132px 1fr;
+      gap: 36px;
+      align-items: start;
+      background: var(--ink);
+      border: 1px solid var(--line);
+      border-radius: 3px;
+      padding: 40px 44px;
+      text-decoration: none;
+      color: inherit;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 160ms ease, background 160ms ease, transform 160ms ease;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 3px;
+      background: var(--red);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 260ms cubic-bezier(0.2, 0.7, 0.3, 1);
+    }
+
+    .card:hover,
+    .card:focus-visible {
+      border-color: var(--line-strong);
+      background: #0D1319;
+      transform: translateY(-2px);
+    }
+
+    .card:hover::before,
+    .card:focus-visible::before { transform: scaleX(1); }
+
+    .card:focus-visible {
+      outline: 2px solid var(--green);
+      outline-offset: 3px;
+    }
+
+    .card-num {
+      font-family: 'Archivo Narrow', 'Archivo', sans-serif;
+      font-weight: 900;
+      font-size: 92px;
+      line-height: 0.8;
+      letter-spacing: -0.04em;
+      color: rgba(255,255,255,0.09);
+      transition: color 200ms ease;
+    }
+
+    .card:hover .card-num { color: rgba(229,9,38,0.42); }
+
+    .card-serie {
+      font-size: var(--type-eyebrow);
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 14px;
+    }
+
+    .card-serie b {
+      font-weight: 500;
+      color: var(--txt-faint);
+    }
+
+    .card-title {
+      font-weight: 900;
+      font-size: var(--type-card);
+      line-height: 1.06;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      margin-bottom: 14px;
+      text-wrap: balance;
+    }
+
+    .card-title i {
+      display: block;
+      font-style: normal;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1;
+      text-transform: none;
+      letter-spacing: 0.04em;
+      color: var(--txt-faint);
+      margin-bottom: 8px;
+    }
+
+    .card-desc {
+      font-size: 15px;
+      color: var(--txt-soft);
+      max-width: 620px;
+      line-height: 1.62;
+      margin-bottom: 26px;
+      text-wrap: pretty;
+    }
+
+    .card-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 44px;
+      font-size: var(--type-eyebrow);
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--txt);
+    }
+
+    .card-cta::after {
+      content: '→';
+      font-size: 15px;
+      letter-spacing: 0;
+      color: var(--red-vivid);
+      transition: transform 200ms ease;
+    }
+
+    .card:hover .card-cta::after { transform: translateX(5px); }
+
+    /* ── FOOTER ── */
+    footer > .wrap-inner {
+      border-top: 1px solid var(--line);
+      padding: 32px 0 56px;
+      font-size: var(--type-eyebrow);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--txt-faint);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    footer strong {
+      color: var(--txt-soft);
+      font-weight: 700;
+    }
+
+    @media (max-width: 720px) {
+      :root {
+        --type-hero: 42px;
+        --type-card: 25px;
+        --type-lead: 16px;
+        --gap-block: 40px;
+      }
+
+      .card {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        padding: 28px 24px;
+      }
+
+      .card-num { font-size: 54px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="rule-top"></div>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="eyebrow">PenaVet · <span>Acervo Técnico</span></div>
+    <h1>Papers<br><em>PenaVet</em></h1>
+    <p class="lead">Condutas escritas em detalhe para quem atende o caso grave: monitoração, intervenção, analgesia, anestesia e urgências — o método MIAAU aplicado a um paciente de verdade.</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="list-head">
+    <div class="eyebrow">Publicados</div>
+    <div class="count">01 paper</div>
+  </div>
+
+  <div class="papers">
+    <a class="card" href="edema-pulmonar-cardiogenico/">
+      <div class="card-num">01</div>
+      <div>
+        <div class="card-serie">Semana do Médico Veterinário <b>· Vet Salva Vidas</b></div>
+        <h2 class="card-title"><i>Lulu:</i>Edema Pulmonar Cardiogênico</h2>
+        <p class="card-desc">Como abordar o paciente que chega em emergência respiratória por insuficiência cardíaca: monitoração, intervenção, sedação e hemodinâmica.</p>
+        <span class="card-cta">Ler o paper</span>
+      </div>
+    </a>
+  </div>
+</main>
+
+<footer class="wrap">
+  <div class="wrap-inner">
+    <div><strong>PenaVet</strong> · Gilberto Costa</div>
+    <div>Método MIAAU</div>
+  </div>
+</footer>
+
+</body>
+</html>
